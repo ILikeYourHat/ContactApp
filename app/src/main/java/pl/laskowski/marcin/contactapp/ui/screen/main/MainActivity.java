@@ -57,7 +57,7 @@ public class MainActivity
 
     @Override
     public void setContacts(List<Contact> contacts) {
-
+        adapter.update(contacts);
     }
 
 }

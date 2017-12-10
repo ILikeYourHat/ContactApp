@@ -16,7 +16,7 @@
         tools:src="@drawable/placeholder_image" />
 
     <TextView
-        android:id="@+id/itemContact_tvSurname"
+        android:id="@+id/itemContact_tvLastName"
         style="@style/Text.Big"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,9 +30,9 @@
         style="@style/Text.Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/itemContact_tvSurname"
-        app:layout_constraintStart_toStartOf="@id/itemContact_tvSurname"
-        app:layout_constraintTop_toBottomOf="@id/itemContact_tvSurname"
+        app:layout_constraintEnd_toEndOf="@id/itemContact_tvLastName"
+        app:layout_constraintStart_toStartOf="@id/itemContact_tvLastName"
+        app:layout_constraintTop_toBottomOf="@id/itemContact_tvLastName"
         tools:text="John" />
 
     <TextView
