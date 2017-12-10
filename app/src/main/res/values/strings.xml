@@ -1,11 +1,17 @@
 <resources>
+
     <string name="app_name">ContactApp</string>
+
+    <!-- MAIN ACTIVITY -->
     <string name="activityMain_noContacts">You have no contacts</string>
-    <string name="itemContact_avatarContentDescription">Contact\'s avatar</string>
-    <string name="itemContact_birthdayLabel">Bithday:</string>
-    <string name="itemContact_deleteButton">Delete contact</string>
     <string name="activityMain_deleteConfirmationDialog_message">Are you sure you want to delete this contact?</string>
     <string name="activityMain_deleteConfirmationDialog_positiveButton">yes</string>
     <string name="activityMain_deleteConfirmationDialog_negativeButton">no</string>
+
+    <!-- CONTACT ITEM -->
+    <string name="itemContact_avatarContentDescription">Contact\'s avatar</string>
+    <string name="itemContact_birthdayLabel">Birthday:</string>
+    <string name="itemContact_deleteButton">Delete contact</string>
     <string name="itemContact_infoButton">Show description</string>
+
 </resources>
