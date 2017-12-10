@@ -7,8 +7,10 @@
 
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/activityMain_rvContacts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:listDivider="@drawable/divider"
         tools:listitem="@layout/item_contact" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

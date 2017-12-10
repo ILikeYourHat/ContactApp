@@ -25,17 +25,17 @@ public class MainPresenter {
     }
 
     private void syncContacts() {
-        ui.switchStateToLoading();
+        ui.switchState(MainUi.State.LOADING);
         interactor.getContacts()
                 .subscribe(this::onContactsAcquired);
     }
 
     private void onContactsAcquired(List<Contact> contacts) {
         if (contacts.isEmpty()) {
-            ui.switchStateToEmptyList();
+            ui.switchState(MainUi.State.EMPTY_LIST);
         } else {
             ui.setContacts(contacts);
-            ui.switchStateToFullList();
+            ui.switchState(MainUi.State.FULL_LIST);
         }
     }
 

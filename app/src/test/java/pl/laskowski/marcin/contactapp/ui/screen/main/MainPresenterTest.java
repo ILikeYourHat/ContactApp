@@ -44,9 +44,9 @@ public class MainPresenterTest {
                 .thenReturn(Observable.just(Model.CONTACTS));
 
         presenter.onCreate();
-        inOrder.verify(ui).switchStateToLoading();
+        inOrder.verify(ui).switchState(MainUi.State.LOADING);
         inOrder.verify(ui).setContacts(Model.CONTACTS);
-        inOrder.verify(ui).switchStateToFullList();
+        inOrder.verify(ui).switchState(MainUi.State.FULL_LIST);
         verifyNoMoreInteractions(ui);
     }
 
@@ -56,8 +56,8 @@ public class MainPresenterTest {
                 .thenReturn(Observable.just(Collections.emptyList()));
 
         presenter.onCreate();
-        inOrder.verify(ui).switchStateToLoading();
-        inOrder.verify(ui).switchStateToEmptyList();
+        inOrder.verify(ui).switchState(MainUi.State.LOADING);
+        inOrder.verify(ui).switchState(MainUi.State.EMPTY_LIST);
         verifyNoMoreInteractions(ui);
     }
 
