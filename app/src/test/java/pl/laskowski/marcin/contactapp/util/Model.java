@@ -35,4 +35,11 @@ public class Model {
                     null)
     );
 
+    public static final Contact CONTACT = new Contact(
+            "Mark",
+            "Cukierberg",
+            null,
+            new LocalDate(1992, 12, 1),
+            "sum description");
+
 }

@@ -20,15 +20,11 @@ import pl.laskowski.marcin.contactapp.model.Contact;
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder>{
 
     private final List<Contact> contacts;
+    private final ContactListener listener;
 
-    public ContactsAdapter() {
+    public ContactsAdapter(ContactListener listener) {
+        this.listener = listener;
         this.contacts = new ArrayList<>();
-    }
-
-    public void update(List<Contact> contacts) {
-        this.contacts.clear();
-        this.contacts.addAll(contacts);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -45,12 +41,26 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder>{
     @Override
     public void onBindViewHolder(ContactsViewHolder holder, int position) {
         Contact contact = contacts.get(position);
-        holder.bind(contact);
+        holder.bind(contact, listener);
     }
 
     @Override
     public int getItemCount() {
         return contacts.size();
+    }
+
+    public void update(List<Contact> contacts) {
+        this.contacts.clear();
+        this.contacts.addAll(contacts);
+        notifyDataSetChanged();
+    }
+
+    public void remove(Contact contact) {
+        int index = contacts.indexOf(contact);
+        if (index != -1) {
+            contacts.remove(index);
+            notifyItemRemoved(index);
+        }
     }
 
 }

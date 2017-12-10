@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -19,7 +20,7 @@ import pl.laskowski.marcin.contactapp.repository.data.ContactParser;
 public class ContactsInteractor {
 
     private final Backend backend;
-    private ContactParser parser;
+    private final ContactParser parser;
 
     @Inject
     public ContactsInteractor(Backend backend) {
@@ -30,6 +31,9 @@ public class ContactsInteractor {
     public Single<List<Contact>> getContacts() {
         return backend.getContacts()
                 .map(contacts -> parser.fromJson(contacts))
+                .flatMapObservable(Observable::fromIterable)
+                .distinct()
+                .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

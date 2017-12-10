@@ -19,4 +19,8 @@ interface MainUi {
 
     void showEmptyListPlaceholder(boolean visible);
 
+    void removeFromList(Contact contact);
+
+    void confirmContactDelete(Contact contact);
+
 }

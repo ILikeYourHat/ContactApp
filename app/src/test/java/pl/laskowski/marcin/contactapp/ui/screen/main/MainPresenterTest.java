@@ -14,6 +14,7 @@ import pl.laskowski.marcin.contactapp.domain.interactor.ContactsInteractor;
 import pl.laskowski.marcin.contactapp.util.Model;
 
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -79,6 +80,30 @@ public class MainPresenterTest {
         verify(ui).showEmptyListPlaceholder(false);
         verify(ui).dismissSwipe();
         verifyNoMoreInteractions(ui);
+    }
+
+    @Test
+    public void shouldShowConfirmationDialogWhenDeleteIsClicked() {
+        presenter.onDeleteClicked(Model.CONTACT);
+        verify(ui).confirmContactDelete(Model.CONTACT);
+    }
+
+    @Test
+    public void shouldDeleteContactOnList() {
+        presenter.onDeleteConfirmed(Model.CONTACT);
+        verify(ui).removeFromList(Model.CONTACT);
+    }
+
+    @Test
+    public void shouldShowPlaceholderWhenListIsEmptyAfterRemove() {
+        when(interactor.getContacts())
+                .thenReturn(Single.just(Collections.singletonList(Model.CONTACT)));
+
+        presenter.onCreate();
+        reset(ui);
+        presenter.onDeleteConfirmed(Model.CONTACT);
+        verify(ui).removeFromList(Model.CONTACT);
+        verify(ui).showEmptyListPlaceholder(true);
     }
 
 }

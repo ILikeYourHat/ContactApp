@@ -2,6 +2,7 @@ package pl.laskowski.marcin.contactapp.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,21 +29,24 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.itemContact_tvLastName)
     TextView tvLastName;
     @BindView(R.id.itemContact_tvBirthdayDate)
-    TextView tvBithdayDate;
+    TextView tvBirthdayDate;
     @BindView(R.id.itemContact_tvDescription)
     TextView tvDescription;
+    @BindView(R.id.itemContact_ibtnDelete)
+    ImageButton ibtnDelete;
 
     public ContactsViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(Contact contact) {
+    public void bind(Contact contact, ContactListener listener) {
         setFirstName(contact.getFirstName());
         setLastName(contact.getLastName());
         setAvatar(contact.getAvatarUrl());
         setBirthdayDate(contact.getBirthdayDate());
         setDescription(contact.getDescription());
+        setDeleteButton(contact, listener);
     }
 
     private void setAvatar(String avatarUrl) {
@@ -63,7 +67,7 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setBirthdayDate(LocalDate birthdayDate) {
-        tvBithdayDate.setText(birthdayDate.toString("dd.MM.yyyy"));
+        tvBirthdayDate.setText(birthdayDate.toString("dd.MM.yyyy"));
     }
 
     private void setDescription(String description) {
@@ -73,6 +77,10 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
         } else {
             tvDescription.setVisibility(View.GONE);
         }
+    }
+
+    private void setDeleteButton(Contact contact, ContactListener listener) {
+        ibtnDelete.setOnClickListener(view -> listener.onDeleteClicked(contact));
     }
 
 }

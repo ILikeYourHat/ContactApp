@@ -23,4 +23,9 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
+    <style name="ImageButton">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
 </resources>

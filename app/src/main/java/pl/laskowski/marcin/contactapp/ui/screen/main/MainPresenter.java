@@ -1,20 +1,24 @@
 package pl.laskowski.marcin.contactapp.ui.screen.main;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import pl.laskowski.marcin.contactapp.dependency.AppComponent;
 import pl.laskowski.marcin.contactapp.domain.interactor.ContactsInteractor;
 import pl.laskowski.marcin.contactapp.model.Contact;
+import pl.laskowski.marcin.contactapp.ui.adapter.ContactListener;
 
 /**
  * Created by Marcin Laskowski.
  * Senfino 2017
  */
 
-public class MainPresenter {
+public class MainPresenter implements ContactListener {
 
     private final MainUi ui;
     private final ContactsInteractor interactor;
+    private List<Contact> contacts = Collections.emptyList();
 
     public MainPresenter(MainUi ui, AppComponent component) {
         this.ui = ui;
@@ -34,11 +38,6 @@ public class MainPresenter {
                 });
     }
 
-    private void onContactsAcquired(List<Contact> contacts) {
-        ui.setContacts(contacts);
-        ui.showEmptyListPlaceholder(contacts.isEmpty());
-    }
-
     public void onRefresh() {
         interactor.getContacts()
                 .subscribe(contacts -> {
@@ -46,4 +45,22 @@ public class MainPresenter {
                     onContactsAcquired(contacts);
                 });
     }
+
+    private void onContactsAcquired(List<Contact> contacts) {
+        this.contacts = new ArrayList<>(contacts);
+        ui.setContacts(contacts);
+        ui.showEmptyListPlaceholder(contacts.isEmpty());
+    }
+
+    @Override
+    public void onDeleteClicked(Contact contact) {
+       ui.confirmContactDelete(contact);
+    }
+
+    public void onDeleteConfirmed(Contact contact) {
+        ui.removeFromList(contact);
+        contacts.remove(contact);
+        ui.showEmptyListPlaceholder(contacts.isEmpty());
+    }
+
 }

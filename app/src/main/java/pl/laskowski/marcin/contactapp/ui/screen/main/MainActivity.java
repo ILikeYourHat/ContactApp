@@ -3,6 +3,7 @@ package pl.laskowski.marcin.contactapp.ui.screen.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,9 +36,11 @@ public class MainActivity
     SwipeRefreshLayout vSwipeRefresh;
     @BindView(R.id.activityMain_vProgressBar)
     ProgressBar vProgressBar;
+    @BindView(R.id.activityMain_vEmptyListPlaceholder)
+    View vEmptyListPlaceholder;
 
     private MainPresenter presenter;
-    private ContactsAdapter adapter = new ContactsAdapter();
+    private ContactsAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this, component());
+        adapter = new ContactsAdapter(presenter);
         initRecyclerView();
         vSwipeRefresh.setOnRefreshListener(() -> presenter.onRefresh());
         presenter.onCreate();
@@ -72,8 +76,22 @@ public class MainActivity
     }
 
     @Override
-    public void showEmptyListPlaceholder(boolean b) {
+    public void showEmptyListPlaceholder(boolean visible) {
+        vEmptyListPlaceholder.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 
+    @Override
+    public void removeFromList(Contact contact) {
+        adapter.remove(contact);
+    }
+
+    @Override
+    public void confirmContactDelete(Contact contact) {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.activityMain_deleteConfirmationDialog_message)
+                .setPositiveButton(R.string.activityMain_deleteConfirmationDialog_positiveButton, (dialogInterface, i) -> presenter.onDeleteConfirmed(contact))
+                .setNegativeButton(R.string.activityMain_deleteConfirmationDialog_negativeButton, null)
+                .show();
     }
 
     private AppComponent component() {
