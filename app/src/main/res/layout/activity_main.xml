@@ -31,13 +31,9 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <ProgressBar
+    <include
         android:id="@+id/activityMain_vProgressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:clickable="false"
+        layout="@layout/activity_main___progress_bar"
         android:visibility="gone" />
 
 </FrameLayout>

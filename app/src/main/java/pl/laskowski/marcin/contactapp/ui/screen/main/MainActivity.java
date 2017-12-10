@@ -11,7 +11,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import org.parceler.Parcels;
 
@@ -42,7 +41,7 @@ public class MainActivity
     @BindView(R.id.activityMain_vSwipeRefresh)
     SwipeRefreshLayout vSwipeRefresh;
     @BindView(R.id.activityMain_vProgressBar)
-    ProgressBar vProgressBar;
+    View vProgressBar;
     @BindView(R.id.activityMain_vEmptyListPlaceholder)
     View vEmptyListPlaceholder;
 
