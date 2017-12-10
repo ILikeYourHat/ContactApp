@@ -1,6 +1,8 @@
 package pl.laskowski.marcin.contactapp.ui.screen.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,6 +24,9 @@ import pl.laskowski.marcin.contactapp.R;
 import pl.laskowski.marcin.contactapp.dependency.AppComponent;
 import pl.laskowski.marcin.contactapp.model.Contact;
 import pl.laskowski.marcin.contactapp.ui.adapter.ContactsAdapter;
+import pl.laskowski.marcin.contactapp.ui.router.Keys;
+import pl.laskowski.marcin.contactapp.ui.router.Requests;
+import pl.laskowski.marcin.contactapp.ui.screen.colorpicker.ColorPickerActivity;
 
 /**
  * Created by Marcin Laskowski.
@@ -97,6 +104,29 @@ public class MainActivity
     @Override
     public void setContactExpanded(Contact contact, boolean expanded) {
         adapter.setExpanded(contact, expanded);
+    }
+
+    @Override
+    public void navigateToPickColorActivity(Contact contact) {
+        Intent intent = new Intent(this, ColorPickerActivity.class);
+        intent.putExtra(Keys.CONTACT, Parcels.wrap(contact));
+        startActivityForResult(intent, Requests.PICK_COLOR);
+    }
+
+    @Override
+    public void setColor(Contact contact, @ColorInt int color) {
+        adapter.setColor(contact, color);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Requests.PICK_COLOR && resultCode == RESULT_OK) {
+            Contact contact = Parcels.unwrap(data.getParcelableExtra(Keys.CONTACT));
+            int color = data.getIntExtra(Keys.COLOR, 0);
+            presenter.onColorPicked(contact, color);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private AppComponent component() {

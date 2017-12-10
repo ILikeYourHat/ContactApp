@@ -13,4 +13,6 @@ public interface ContactListener {
 
     void onInfoClicked(Contact contact, boolean expanded);
 
+    void onLongClicked(Contact contact);
+
 }

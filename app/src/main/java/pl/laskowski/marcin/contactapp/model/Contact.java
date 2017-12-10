@@ -4,12 +4,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.joda.time.LocalDate;
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
 
 /**
  * Created by Marcin Laskowski.
  * Senfino 2017
  */
 
+@Parcel(Parcel.Serialization.BEAN)
 public class Contact {
 
     //==============================================================================================
@@ -31,6 +34,7 @@ public class Contact {
     // CONSTRUCTOR
     //==============================================================================================
 
+    @ParcelConstructor
     public Contact(
             @NonNull String firstName,
             @NonNull String lastName,

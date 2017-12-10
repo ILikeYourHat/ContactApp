@@ -43,6 +43,7 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ContactAdapterItem item, ContactListener listener) {
+        setRoot(item, listener);
         setFirstName(item.getContact().getFirstName());
         setLastName(item.getContact().getLastName());
         setAvatar(item.getContact().getAvatarUrl());
@@ -50,6 +51,14 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
         setDescription(item.getContact().getDescription(), item.isExpanded());
         setDeleteButton(item.getContact(), listener);
         setInfoButton(item, listener);
+    }
+
+    private void setRoot(ContactAdapterItem item, ContactListener listener) {
+        itemView.setBackgroundColor(item.getBackgroundColor());
+        itemView.setOnLongClickListener(view -> {
+            listener.onLongClicked(item.getContact());
+            return true;
+        });
     }
 
     private void setAvatar(String avatarUrl) {

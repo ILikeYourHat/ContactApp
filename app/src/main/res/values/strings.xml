@@ -8,6 +8,12 @@
     <string name="activityMain_deleteConfirmationDialog_positiveButton">yes</string>
     <string name="activityMain_deleteConfirmationDialog_negativeButton">no</string>
 
+    <!-- COLOR PICKER ACTIVITY -->
+    <string name="activityColorPicker_title">Pick a color</string>
+    <string name="activityColorPicker_colorGreen">Green color</string>
+    <string name="activityColorPicker_colorRed">Red color</string>
+    <string name="activityColorPicker_colorBlue">Blue color</string>
+
     <!-- CONTACT ITEM -->
     <string name="itemContact_avatarContentDescription">Contact\'s avatar</string>
     <string name="itemContact_birthdayLabel">Birthday:</string>

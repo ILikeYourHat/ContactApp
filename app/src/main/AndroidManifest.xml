@@ -23,6 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.screen.colorpicker.ColorPickerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/activityColorPicker_title" />
 
     </application>
 

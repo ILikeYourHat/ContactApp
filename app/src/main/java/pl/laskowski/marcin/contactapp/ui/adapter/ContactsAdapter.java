@@ -1,5 +1,6 @@
 package pl.laskowski.marcin.contactapp.ui.adapter;
 
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -70,6 +71,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder>{
         if (index != -1) {
             ContactAdapterItem real = contactItems.get(index);
             real.setExpanded(expanded);
+            notifyItemChanged(index);
+        }
+    }
+
+    public void setColor(Contact contact, @ColorInt int color) {
+        int index = findIndex(contact);
+        if (index != -1) {
+            ContactAdapterItem real = contactItems.get(index);
+            real.setBackgroundColor(color);
             notifyItemChanged(index);
         }
     }

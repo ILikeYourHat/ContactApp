@@ -25,4 +25,8 @@ interface MainUi {
 
     void setContactExpanded(Contact contact, boolean expanded);
 
+    void navigateToPickColorActivity(Contact contact);
+
+    void setColor(Contact contact, int color);
+
 }

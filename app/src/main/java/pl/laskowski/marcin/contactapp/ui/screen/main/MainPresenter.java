@@ -1,5 +1,7 @@
 package pl.laskowski.marcin.contactapp.ui.screen.main;
 
+import android.support.annotation.ColorInt;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -62,10 +64,19 @@ public class MainPresenter implements ContactListener {
         ui.setContactExpanded(contact, !expanded);
     }
 
+    @Override
+    public void onLongClicked(Contact contact) {
+        ui.navigateToPickColorActivity(contact);
+    }
+
     public void onDeleteConfirmed(Contact contact) {
         ui.removeFromList(contact);
         contacts.remove(contact);
         ui.showEmptyListPlaceholder(contacts.isEmpty());
+    }
+
+    public void onColorPicked(Contact contact, @ColorInt int color) {
+        ui.setColor(contact, color);
     }
 
 }
