@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityMain_vfContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/activityMain_vfContent"
     tools:context=".ui.screen.main.MainActivity">
 
-    <include layout="@layout/activity_main___list_full" />
+    <TextView
+        style="@style/Text.Big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/common_padding"
+        android:text="@string/activityMain_noContacts"
+        android:visibility="gone" />
 
-    <include layout="@layout/activity_main___list_loading" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/activityMain_vSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include layout="@layout/activity_main___list_empty" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activityMain_rvContacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listDivider="@drawable/divider"
+            tools:listitem="@layout/item_contact" />
 
-</ViewFlipper>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/activityMain_vProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:clickable="false"
+        android:visibility="gone" />
+
+</FrameLayout>

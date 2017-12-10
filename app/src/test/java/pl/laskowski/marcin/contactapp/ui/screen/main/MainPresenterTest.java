@@ -14,6 +14,7 @@ import pl.laskowski.marcin.contactapp.domain.interactor.ContactsInteractor;
 import pl.laskowski.marcin.contactapp.util.Model;
 
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -48,9 +49,10 @@ public class MainPresenterTest {
                 .thenReturn(Single.just(Model.CONTACTS));
 
         presenter.onCreate();
-        inOrder.verify(ui).switchState(MainUi.State.LOADING);
-        inOrder.verify(ui).setContacts(Model.CONTACTS);
-        inOrder.verify(ui).switchState(MainUi.State.FULL_LIST);
+        inOrder.verify(ui).showLoading(true);
+        inOrder.verify(ui).showLoading(false);
+        verify(ui).setContacts(Model.CONTACTS);
+        verify(ui).showEmptyListPlaceholder(false);
         verifyNoMoreInteractions(ui);
     }
 
@@ -60,8 +62,22 @@ public class MainPresenterTest {
                 .thenReturn(Single.just(Collections.emptyList()));
 
         presenter.onCreate();
-        inOrder.verify(ui).switchState(MainUi.State.LOADING);
-        inOrder.verify(ui).switchState(MainUi.State.EMPTY_LIST);
+        inOrder.verify(ui).showLoading(true);
+        inOrder.verify(ui).showLoading(false);
+        verify(ui).setContacts(Collections.emptyList());
+        verify(ui).showEmptyListPlaceholder(true);
+        verifyNoMoreInteractions(ui);
+    }
+
+    @Test
+    public void shouldRefreshListOnSwipe() {
+        when(interactor.getContacts())
+                .thenReturn(Single.just(Model.CONTACTS));
+
+        presenter.onRefresh();
+        verify(ui).setContacts(Model.CONTACTS);
+        verify(ui).showEmptyListPlaceholder(false);
+        verify(ui).dismissSwipe();
         verifyNoMoreInteractions(ui);
     }
 

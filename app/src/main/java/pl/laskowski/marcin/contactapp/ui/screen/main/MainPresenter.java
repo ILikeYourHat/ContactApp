@@ -26,18 +26,24 @@ public class MainPresenter {
     }
 
     private void syncContacts() {
-        ui.switchState(MainUi.State.LOADING);
+        ui.showLoading(true);
         interactor.getContacts()
-                .subscribe(this::onContactsAcquired);
+                .subscribe(contacts -> {
+                    ui.showLoading(false);
+                    onContactsAcquired(contacts);
+                });
     }
 
     private void onContactsAcquired(List<Contact> contacts) {
-        if (contacts.isEmpty()) {
-            ui.switchState(MainUi.State.EMPTY_LIST);
-        } else {
-            ui.setContacts(contacts);
-            ui.switchState(MainUi.State.FULL_LIST);
-        }
+        ui.setContacts(contacts);
+        ui.showEmptyListPlaceholder(contacts.isEmpty());
     }
 
+    public void onRefresh() {
+        interactor.getContacts()
+                .subscribe(contacts -> {
+                    ui.dismissSwipe();
+                    onContactsAcquired(contacts);
+                });
+    }
 }

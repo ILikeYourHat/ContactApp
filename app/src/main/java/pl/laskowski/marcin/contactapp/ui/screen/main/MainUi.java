@@ -11,14 +11,12 @@ import pl.laskowski.marcin.contactapp.model.Contact;
 
 interface MainUi {
 
-    void switchState(State state);
-
     void setContacts(List<Contact> contacts);
 
-    enum State {
-        FULL_LIST,
-        LOADING,
-        EMPTY_LIST
-    }
+    void dismissSwipe();
+
+    void showLoading(boolean visible);
+
+    void showEmptyListPlaceholder(boolean visible);
 
 }
