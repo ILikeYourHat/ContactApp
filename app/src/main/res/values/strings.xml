@@ -2,4 +2,5 @@
     <string name="app_name">ContactApp</string>
     <string name="activityMain_noContacts">You have no contacts</string>
     <string name="itemContact_avatarContentDescription">Contact\'s avatar</string>
+    <string name="itemContact_birthdayLabel">Bithday:</string>
 </resources>

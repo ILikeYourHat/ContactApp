@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ListItem"
@@ -36,12 +35,26 @@
         tools:text="John" />
 
     <TextView
+        android:id="@+id/itemContact_tvBirthdayLabel"
+        style="@style/Text.Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/itemContact_birthdayLabel"
+        app:layout_constraintEnd_toStartOf="@+id/itemContact_tvBirthdayDate"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/itemContact_tvFirstName"
+        app:layout_constraintTop_toBottomOf="@id/itemContact_tvFirstName" />
+
+    <TextView
         android:id="@+id/itemContact_tvBirthdayDate"
         style="@style/Text.Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
         app:layout_constraintEnd_toEndOf="@id/itemContact_tvFirstName"
-        app:layout_constraintStart_toStartOf="@id/itemContact_tvFirstName"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/itemContact_tvBirthdayLabel"
         app:layout_constraintTop_toBottomOf="@id/itemContact_tvFirstName"
         tools:text="12/01/1992" />
 
