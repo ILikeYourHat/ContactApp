@@ -3,40 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ListItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/itemContact_ivAvatar"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        style="@style/Avatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
         android:contentDescription="@string/itemContact_avatarContentDescription"
         tools:src="@drawable/placeholder_image" />
 
     <TextView
         android:id="@+id/itemContact_tvSurname"
+        style="@style/Text.Big"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/itemContact_ivAvatar"
         tools:text="Smith" />
 
     <TextView
         android:id="@+id/itemContact_tvFirstName"
+        style="@style/Text.Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/itemContact_ivAvatar"
+        app:layout_constraintEnd_toEndOf="@id/itemContact_tvSurname"
+        app:layout_constraintStart_toStartOf="@id/itemContact_tvSurname"
         app:layout_constraintTop_toBottomOf="@id/itemContact_tvSurname"
         tools:text="John" />
 
     <TextView
         android:id="@+id/itemContact_tvBirthdayDate"
+        style="@style/Text.Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/itemContact_ivAvatar"
+        app:layout_constraintEnd_toEndOf="@id/itemContact_tvFirstName"
+        app:layout_constraintStart_toStartOf="@id/itemContact_tvFirstName"
         app:layout_constraintTop_toBottomOf="@id/itemContact_tvFirstName"
         tools:text="12/01/1992" />
 
@@ -49,12 +54,14 @@
 
     <TextView
         android:id="@+id/itemContact_tvDescription"
+        style="@style/Text.Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/barrier"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Really cool guy" />
 
 </android.support.constraint.ConstraintLayout>
