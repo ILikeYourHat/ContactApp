@@ -23,4 +23,6 @@ interface MainUi {
 
     void confirmContactDelete(Contact contact);
 
+    void setContactExpanded(Contact contact, boolean expanded);
+
 }

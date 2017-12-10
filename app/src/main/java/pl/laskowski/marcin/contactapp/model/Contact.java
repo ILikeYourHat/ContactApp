@@ -113,4 +113,7 @@ public class Contact {
                 '}';
     }
 
+    public boolean hasDescription() {
+        return description != null;
+    }
 }

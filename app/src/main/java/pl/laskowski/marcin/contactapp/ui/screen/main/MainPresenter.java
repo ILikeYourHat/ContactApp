@@ -57,6 +57,11 @@ public class MainPresenter implements ContactListener {
        ui.confirmContactDelete(contact);
     }
 
+    @Override
+    public void onInfoClicked(Contact contact, boolean expanded) {
+        ui.setContactExpanded(contact, !expanded);
+    }
+
     public void onDeleteConfirmed(Contact contact) {
         ui.removeFromList(contact);
         contacts.remove(contact);

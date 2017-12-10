@@ -94,6 +94,11 @@ public class MainActivity
                 .show();
     }
 
+    @Override
+    public void setContactExpanded(Contact contact, boolean expanded) {
+        adapter.setExpanded(contact, expanded);
+    }
+
     private AppComponent component() {
         return ((App) getApplication()).getComponent();
     }

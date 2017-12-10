@@ -34,19 +34,22 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
     TextView tvDescription;
     @BindView(R.id.itemContact_ibtnDelete)
     ImageButton ibtnDelete;
+    @BindView(R.id.itemContact_ibtnInfo)
+    ImageButton ibtnInfo;
 
     public ContactsViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(Contact contact, ContactListener listener) {
-        setFirstName(contact.getFirstName());
-        setLastName(contact.getLastName());
-        setAvatar(contact.getAvatarUrl());
-        setBirthdayDate(contact.getBirthdayDate());
-        setDescription(contact.getDescription());
-        setDeleteButton(contact, listener);
+    public void bind(ContactAdapterItem item, ContactListener listener) {
+        setFirstName(item.getContact().getFirstName());
+        setLastName(item.getContact().getLastName());
+        setAvatar(item.getContact().getAvatarUrl());
+        setBirthdayDate(item.getContact().getBirthdayDate());
+        setDescription(item.getContact().getDescription(), item.isExpanded());
+        setDeleteButton(item.getContact(), listener);
+        setInfoButton(item, listener);
     }
 
     private void setAvatar(String avatarUrl) {
@@ -70,10 +73,10 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
         tvBirthdayDate.setText(birthdayDate.toString("dd.MM.yyyy"));
     }
 
-    private void setDescription(String description) {
+    private void setDescription(String description, boolean expanded) {
         if (description != null) {
-            tvDescription.setVisibility(View.VISIBLE);
             tvDescription.setText(description);
+            tvDescription.setVisibility(expanded ? View.VISIBLE : View.GONE);
         } else {
             tvDescription.setVisibility(View.GONE);
         }
@@ -81,6 +84,11 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
 
     private void setDeleteButton(Contact contact, ContactListener listener) {
         ibtnDelete.setOnClickListener(view -> listener.onDeleteClicked(contact));
+    }
+
+    private void setInfoButton(ContactAdapterItem item, ContactListener listener) {
+        ibtnInfo.setVisibility(item.getContact().hasDescription() ? View.VISIBLE : View.GONE);
+        ibtnInfo.setOnClickListener(v -> listener.onInfoClicked(item.getContact(), item.isExpanded()));
     }
 
 }

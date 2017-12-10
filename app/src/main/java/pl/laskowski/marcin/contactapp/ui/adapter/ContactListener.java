@@ -11,4 +11,6 @@ public interface ContactListener {
 
     void onDeleteClicked(Contact contact);
 
+    void onInfoClicked(Contact contact, boolean expanded);
+
 }

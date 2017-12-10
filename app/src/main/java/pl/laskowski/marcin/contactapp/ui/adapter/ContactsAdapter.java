@@ -19,12 +19,12 @@ import pl.laskowski.marcin.contactapp.model.Contact;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder>{
 
-    private final List<Contact> contacts;
+    private final List<ContactAdapterItem> contactItems;
     private final ContactListener listener;
 
     public ContactsAdapter(ContactListener listener) {
         this.listener = listener;
-        this.contacts = new ArrayList<>();
+        this.contactItems = new ArrayList<>();
     }
 
     @Override
@@ -40,27 +40,47 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsViewHolder>{
 
     @Override
     public void onBindViewHolder(ContactsViewHolder holder, int position) {
-        Contact contact = contacts.get(position);
+        ContactAdapterItem contact = contactItems.get(position);
         holder.bind(contact, listener);
     }
 
     @Override
     public int getItemCount() {
-        return contacts.size();
+        return contactItems.size();
     }
 
     public void update(List<Contact> contacts) {
-        this.contacts.clear();
-        this.contacts.addAll(contacts);
+        this.contactItems.clear();
+        for (Contact contact : contacts) {
+            this.contactItems.add(new ContactAdapterItem(contact));
+        }
         notifyDataSetChanged();
     }
 
     public void remove(Contact contact) {
-        int index = contacts.indexOf(contact);
+        int index = findIndex(contact);
         if (index != -1) {
-            contacts.remove(index);
+            contactItems.remove(index);
             notifyItemRemoved(index);
         }
+    }
+
+    public void setExpanded(Contact contact, boolean expanded) {
+        int index = findIndex(contact);
+        if (index != -1) {
+            ContactAdapterItem real = contactItems.get(index);
+            real.setExpanded(expanded);
+            notifyItemChanged(index);
+        }
+    }
+
+    private int findIndex(Contact contact) {
+        for (int i = 0; i < contactItems.size(); i++) {
+            if (contactItems.get(i).getContact().equals(contact)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

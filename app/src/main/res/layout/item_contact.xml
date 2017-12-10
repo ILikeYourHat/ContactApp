@@ -58,12 +58,33 @@
         app:layout_constraintTop_toBottomOf="@id/itemContact_tvFirstName"
         tools:text="12/01/1992" />
 
+
+    <ImageButton
+        android:id="@+id/itemContact_ibtnDelete"
+        style="@style/ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/itemContact_deleteButton"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/itemContact_ibtnInfo"
+        style="@style/ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/itemContact_infoButton"
+        android:src="@drawable/ic_info"
+        app:layout_constraintTop_toBottomOf="@+id/itemContact_ibtnDelete"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <android.support.constraint.Barrier
         android:id="@+id/barrier"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="itemContact_ivAvatar, itemContact_tvBirthdayDate" />
+        app:constraint_referenced_ids="itemContact_ivAvatar, itemContact_tvBirthdayDate, itemContact_ibtnInfo" />
 
     <TextView
         android:id="@+id/itemContact_tvDescription"
@@ -77,15 +98,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/barrier"
         tools:text="Really cool guy" />
-
-    <ImageButton
-        android:id="@+id/itemContact_ibtnDelete"
-        style="@style/ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/itemContact_deleteButton"
-        android:src="@drawable/ic_delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

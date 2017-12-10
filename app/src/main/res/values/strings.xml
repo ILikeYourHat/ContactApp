@@ -7,4 +7,5 @@
     <string name="activityMain_deleteConfirmationDialog_message">Are you sure you want to delete this contact?</string>
     <string name="activityMain_deleteConfirmationDialog_positiveButton">yes</string>
     <string name="activityMain_deleteConfirmationDialog_negativeButton">no</string>
+    <string name="itemContact_infoButton">Show description</string>
 </resources>
