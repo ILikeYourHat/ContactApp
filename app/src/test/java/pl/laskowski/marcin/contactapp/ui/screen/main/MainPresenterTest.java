@@ -8,7 +8,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
+import pl.laskowski.marcin.contactapp.dependency.AppComponent;
 import pl.laskowski.marcin.contactapp.domain.interactor.ContactsInteractor;
 import pl.laskowski.marcin.contactapp.util.Model;
 
@@ -26,6 +27,8 @@ public class MainPresenterTest {
     @Mock
     MainUi ui;
     @Mock
+    AppComponent component;
+    @Mock
     ContactsInteractor interactor;
 
     private MainPresenter presenter;
@@ -35,13 +38,14 @@ public class MainPresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         inOrder = inOrder(ui);
-        presenter = new MainPresenter(ui, interactor);
+        when(component.contactsInteractor()).thenReturn(interactor);
+        presenter = new MainPresenter(ui, component);
     }
 
     @Test
     public void shouldSyncContacts() {
         when(interactor.getContacts())
-                .thenReturn(Observable.just(Model.CONTACTS));
+                .thenReturn(Single.just(Model.CONTACTS));
 
         presenter.onCreate();
         inOrder.verify(ui).switchState(MainUi.State.LOADING);
@@ -53,7 +57,7 @@ public class MainPresenterTest {
     @Test
     public void shouldSyncEmptyContacts() {
         when(interactor.getContacts())
-                .thenReturn(Observable.just(Collections.emptyList()));
+                .thenReturn(Single.just(Collections.emptyList()));
 
         presenter.onCreate();
         inOrder.verify(ui).switchState(MainUi.State.LOADING);

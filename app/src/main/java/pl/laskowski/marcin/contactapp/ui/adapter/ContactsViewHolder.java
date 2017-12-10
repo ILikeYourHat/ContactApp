@@ -48,6 +48,7 @@ public class ContactsViewHolder extends RecyclerView.ViewHolder {
     private void setAvatar(String avatarUrl) {
         Picasso.with(itemView.getContext())
                 .load(avatarUrl)
+                .fit()
                 .transform(new CircleTransform())
                 .placeholder(R.drawable.placeholder_image)
                 .into(ivAvatar);

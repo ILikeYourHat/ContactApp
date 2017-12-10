@@ -2,6 +2,7 @@ package pl.laskowski.marcin.contactapp.ui.screen.main;
 
 import java.util.List;
 
+import pl.laskowski.marcin.contactapp.dependency.AppComponent;
 import pl.laskowski.marcin.contactapp.domain.interactor.ContactsInteractor;
 import pl.laskowski.marcin.contactapp.model.Contact;
 
@@ -15,9 +16,9 @@ public class MainPresenter {
     private final MainUi ui;
     private final ContactsInteractor interactor;
 
-    public MainPresenter(MainUi ui, ContactsInteractor interactor) {
+    public MainPresenter(MainUi ui, AppComponent component) {
         this.ui = ui;
-        this.interactor = interactor;
+        this.interactor = component.contactsInteractor();
     }
 
     public void onCreate() {

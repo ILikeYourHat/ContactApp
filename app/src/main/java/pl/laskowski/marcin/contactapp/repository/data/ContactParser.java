@@ -28,7 +28,7 @@ public class ContactParser {
             DateTimeFormat.forPattern("EEE MMM dd yyyy HH:mm:ss").withLocale(Locale.US));
 
     @FromJson
-    List<Contact> fromJson(List<CategoryJson> list) {
+    public List<Contact> fromJson(List<CategoryJson> list) {
         List<Contact> contacts = new ArrayList<>();
         for (CategoryJson categoryJson : list) {
             if (CONTACTS_CATEGORY_NAME.equals(categoryJson.name)) {

@@ -12,7 +12,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.laskowski.marcin.contactapp.App;
 import pl.laskowski.marcin.contactapp.R;
+import pl.laskowski.marcin.contactapp.dependency.AppComponent;
 import pl.laskowski.marcin.contactapp.domain.interactor.ContactsInteractor;
 import pl.laskowski.marcin.contactapp.model.Contact;
 import pl.laskowski.marcin.contactapp.ui.adapter.ContactsAdapter;
@@ -39,7 +41,7 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new MainPresenter(this, new ContactsInteractor());
+        presenter = new MainPresenter(this, component());
         presenter.onCreate();
         initRecyclerView();
     }
@@ -58,6 +60,11 @@ public class MainActivity
     @Override
     public void setContacts(List<Contact> contacts) {
         adapter.update(contacts);
+    }
+
+
+    private AppComponent component() {
+        return ((App) getApplication()).getComponent();
     }
 
 }

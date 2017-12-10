@@ -1,15 +1,15 @@
 package pl.laskowski.marcin.contactapp.domain.interactor;
 
-import org.joda.time.LocalDate;
-
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
+import javax.inject.Inject;
+
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import pl.laskowski.marcin.contactapp.model.Contact;
+import pl.laskowski.marcin.contactapp.repository.Backend;
+import pl.laskowski.marcin.contactapp.repository.data.ContactParser;
 
 /**
  * Created by Marcin Laskowski.
@@ -18,21 +18,18 @@ import pl.laskowski.marcin.contactapp.model.Contact;
 
 public class ContactsInteractor {
 
-    public Observable<List<Contact>> getContacts() {
-        return Observable.just(Arrays.asList(
-                new Contact(
-                        "FirstName",
-                        "LastName",
-                        "http://www.collider.com/wp-content/uploads/bender_futurama.jpg",
-                        new LocalDate(3000, 2, 22),
-                        "Description"),
-                new Contact(
-                        "FirstName2",
-                        "LastName2",
-                        null,
-                        new LocalDate(1992, 1, 12),
-                        null)))
-                .delay(2, TimeUnit.SECONDS)
+    private final Backend backend;
+    private ContactParser parser;
+
+    @Inject
+    public ContactsInteractor(Backend backend) {
+        this.backend = backend;
+        this.parser = new ContactParser();
+    }
+
+    public Single<List<Contact>> getContacts() {
+        return backend.getContacts()
+                .map(contacts -> parser.fromJson(contacts))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
